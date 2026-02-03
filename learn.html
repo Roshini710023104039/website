@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LearnOnline</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f8;
+}
+
+/* Header */
+header{
+    background:#1e90ff;
+    color:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header nav a{
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* Hero */
+.hero{
+    background:white;
+    padding:60px 20px;
+    text-align:center;
+}
+
+.hero h2{
+    font-size:36px;
+}
+
+.hero p{
+    margin:15px 0;
+    font-size:18px;
+}
+
+.hero button{
+    padding:10px 20px;
+    font-size:16px;
+    background:#1e90ff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+/* Courses */
+.courses{
+    padding:40px 20px;
+}
+
+.courses h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.course-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+}
+
+.course-card{
+    background:white;
+    width:260px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    overflow:hidden;
+    text-align:center;
+}
+
+.course-card img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+}
+
+.course-card h3{
+    margin:15px 0 5px;
+}
+
+.course-card p{
+    padding:0 10px;
+    font-size:14px;
+}
+
+.course-card button{
+    margin:15px;
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* Modal */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:white;
+    padding:25px;
+    width:300px;
+    border-radius:8px;
+}
+
+.modal-content input{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+.modal-content button{
+    width:100%;
+    padding:10px;
+    background:#1e90ff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.close{
+    text-align:right;
+    cursor:pointer;
+    color:red;
+}
+
+/* Footer */
+footer{
+    background:#1e90ff;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📘 LearnOnline</h1>
+    <nav>
+        <a onclick="scrollToCourses()">Courses</a>
+        <a onclick="showContact()">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Learn Anytime, Anywhere</h2>
+    <p>Professional online courses for future developers</p>
+    <button onclick="scrollToCourses()">Get Started</button>
+</section>
+
+<section id="courses" class="courses">
+    <h2>Our Courses</h2>
+
+    <div class="course-container">
+
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159" alt="HTML">
+            <h3>HTML Basics</h3>
+            <p>Build strong website foundations</p>
+            <button onclick="openForm('HTML Basics')">Enroll</button>
+        </div>
+
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f" alt="CSS">
+            <h3>CSS Mastery</h3>
+            <p>Design modern & responsive sites</p>
+            <button onclick="openForm('CSS Mastery')">Enroll</button>
+        </div>
+
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" alt="JavaScript">
+            <h3>JavaScript</h3>
+            <p>Make websites interactive</p>
+            <button onclick="openForm('JavaScript')">Enroll</button>
+        </div>
+
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c" alt="Python">
+            <h3>Python Programming</h3>
+            <p>Beginner to advanced Python</p>
+            <button onclick="openForm('Python Programming')">Enroll</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Enroll Modal -->
+<div class="modal" id="enrollModal">
+    <div class="modal-content">
+        <div class="close" onclick="closeForm()">✖</div>
+        <h3>Enroll Now</h3>
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="course" readonly>
+        <button onclick="saveEnrollment()">Submit</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 LearnOnline</p>
+</footer>
+
+<script>
+let selectedCourse = "";
+
+// Contact
+function showContact(){
+    alert("📧 Contact Email:\nlearnonline@gmail.com");
+}
+
+// Scroll
+function scrollToCourses(){
+    document.getElementById("courses").scrollIntoView({behavior:"smooth"});
+}
+
+// Form
+function openForm(course){
+    selectedCourse = course;
+    document.getElementById("course").value = course;
+    document.getElementById("enrollModal").style.display = "flex";
+}
+
+function closeForm(){
+    document.getElementById("enrollModal").style.display = "none";
+}
+
+// Save
+function saveEnrollment(){
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    if(name==="" || email===""){
+        alert("Please fill all details");
+        return;
+    }
+
+    let enrollments = JSON.parse(localStorage.getItem("enrollments")) || [];
+    enrollments.push({name,email,course:selectedCourse});
+    localStorage.setItem("enrollments", JSON.stringify(enrollments));
+
+    alert("Enrollment successful!");
+    closeForm();
+}
+</script>
+
+</body>
+</html>
